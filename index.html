@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+
+<head>
+  <link href="styles.css" type="text/css" rel="stylesheet">
+  <title>Forest</title>
+</head>
+
+<body>
+  <img class="logo" style="max-width: 250px; margin: 20px;" src="logo.svg" />
+  <h1>Forest</h1>
+  <p>
+    Forest is a programming language that compiles to WebAssembly,
+    featuring a strong static type system, customizable syntax and
+    an approach to immutability and garbage collection that is fast,
+    safe, and predictable.
+  </p>
+
+  <h2>Type System</h2>
+  <p>
+    Forest has a strong static type system that is heavily inspired by languages like Haskell and Elm.
+
+    There is currently only a very simple implementation, but it is capable of checking parameter types, return types,
+    function application, and more.
+  </p>
+
+  <h2>Syntax</h2>
+  <p>
+    Part of the impetus for creating Forest was wanting to have a place to explore the creation
+    of visual editors for functional applications. We realized that in order for a visual editor
+    to be a truely worthwhile experience, it needs to be a first class citizen alongside the textual syntax.
+  </p>
+
+  <p>
+    <a href="http://www.luna-lang.org/">Luna</a> is already an inspiration here, with a dual visual/text representation
+    and a hybrid editor. However, we believe that the community should be free to experiment and find what works best for them.
+
+    That's why in Forest, there is no canonical syntax imposed by the language. Each user picks a syntax they like, but we can all still work together.
+  </p>
+
+  <p>
+    Since Haskell and Elm are the basis for Forest's programming model, the Haskell syntax is the first to be developed.
+
+    Here is a simple fibonacci program, projected to Forest's Haskell syntax.
+  </p>
+
+  <pre>
+fib :: Int -> Int
+fib i =
+  case i of
+    0 -> 1
+    1 -> 1
+    i -> fib (i - 2) + fib (i - 1)
+
+main :: Int
+main =
+  let
+    a = fib 5
+    b = fib 10
+  in
+    a + b
+  </pre>
+
+  <p>
+    Here is the same program, in Forest's TypeScript syntax.
+  </p>
+
+  <pre>
+function fib(i: Int): Int {
+  switch (i) {
+    case 0: 1;
+    case 1: 1;
+    case i: fib(i - 2) + fib(i - 1);
+  }
+}
+
+function main(): Int {
+  let a = fib(5);
+  let b = fib(10);
+
+  a + b;
+}
+  </pre>
+
+  <p>
+    Notice that this is not actually valid TypeScript. It's more a syntax that would be mostly
+    familiar to someone who has primarily worked with TypeScript.
+  </p>
+
+  <p>
+    Some might object to the use of semicolons in this example, since they're not even strictly needed
+    in JavaScript. This is a perfect example of one of the reasons it's nice to be able to customize your syntax.
+  </p>
+
+  <p>
+    A syntax in Forest is a parser and a printer for a given grammar. All syntaxes parse and print to and from the same
+    data structure. So if you like, you could have printer that included semicolons, or perhaps not.
+  </p>
+
+  <p>
+    In order for a syntax to be considered valid, it must be able to take any arbitrary Forest module, print it,
+    and then re-parse the printed output and arrive at the same module.
+  </p>
+
+  <h2>Memory Management</h2>
+
+  <p>
+    Pure functional programming with a helpful compiler is a great experience,
+    and thanks to language like Elm and PureScript it's already possible in the browser.
+  </p>
+
+  <p>
+    One of the reasons this style of programming is great is immutability. Mutable updates
+    to shared objects are a common source of bugs in JavaScript. However, immutability has the overhead
+    of allocating memory for every update. This means that it's pretty much impossible
+    to avoid pauses for garbage collection if you program with Elm or PureScript.
+  </p>
+
+  <p>
+    This isn't that bad for most conventional web applications, but Forest is designed
+    to be fast enough to allow development complex games and machine learning algorithms in the browser.
+  </p>
+
+  <p>
+    Forest aims to take advantage of the new world that WebAssembly provides
+    by avoiding the JavaScript memory model, and instead opting for a memory model
+    similar to Rust. When possible, memory will be kept on the stack, and otherwise
+    it will be tracked by reference counting.
+  </p>
+
+  <p>
+    One advantage Forest has over Rust is that in Forest, everything is immutable.
+    That means we can use a neat optimization where if we're updating an object, and
+    that object is only referenced at the callsite, we can perform the update in place.
+  </p>
+
+  <p>
+    This means that in many cases, you can program in Forest with the guarantees of immutability
+    while incurring minimal overhead when compared to JavaScript runtime immutability.
+  </p>
+</body>

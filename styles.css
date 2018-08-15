@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text');
+
+html {
+  background: #FAFFFA;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: large;
+  max-width: 600px;
+}
+
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 1.7em;
+}
+
+.logo {
+  margin: 0.5em;
+}
+
+pre {
+  width: 100%;
+  color: #FEFFFE;
+  background: #001;
+  padding: 1em;
+  border-radius: 5px;
+}
